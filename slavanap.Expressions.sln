@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slavanap.Expressions", "slavanap.Expressions.csproj", "{C18C09BE-9C1F-4704-AD0E-CD9FFCB6583B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C18C09BE-9C1F-4704-AD0E-CD9FFCB6583B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18C09BE-9C1F-4704-AD0E-CD9FFCB6583B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18C09BE-9C1F-4704-AD0E-CD9FFCB6583B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18C09BE-9C1F-4704-AD0E-CD9FFCB6583B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E3FDEA9-F80D-4815-BB71-55292968E92A}
+	EndGlobalSection
+EndGlobal
