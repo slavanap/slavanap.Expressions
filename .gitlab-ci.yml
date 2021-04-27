@@ -5,12 +5,12 @@ build:
   variables:
     DOTNET_CLI_TELEMETRY_OPTOUT: "1"
   script:
-    - dotnet build "slavanap.Expressions.csproj" -c Release -o /app
+    - dotnet build "slavanap.Expressions.csproj" -c Release -o ./app
     - |
-      if [ "$CI_COMMIT_BRANCH" = "master" ]; then
-        dotnet nuget push "/app/*.nupkg" --api-key "$APIKEY" -s https://api.nuget.org/v3/index.json
+      if [ "$CI_COMMIT_BRANCH" = "main" ]; then
+        dotnet nuget push "./app/*.nupkg" --api-key "$APIKEY" -s https://api.nuget.org/v3/index.json
       fi
   artifacts:
     name: "NuGet package"
     paths:
-      - /app/*.nupkg
+      - app/*.nupkg
