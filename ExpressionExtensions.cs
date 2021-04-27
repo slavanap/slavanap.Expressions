@@ -31,27 +31,23 @@ namespace slavanap.Expressions {
     public static class Expr {
 
         internal class ExpressionSimplifier : ExpressionVisitor {
-            Dictionary<ParameterExpression, Expression> _replaceMap = new Dictionary<ParameterExpression, Expression>();
+            readonly Dictionary<ParameterExpression, Expression> _replaceMap = new Dictionary<ParameterExpression, Expression>();
 
             static object GetValueOfExpression(Expression exp) {
                 switch (exp.NodeType) {
-                    case ExpressionType.Constant: return (exp as ConstantExpression).Value;
+                    case ExpressionType.Constant:
+                        return (exp as ConstantExpression).Value;
                     case ExpressionType.MemberAccess: {
                         var memberExpression = exp as MemberExpression;
                         var innerExpression = memberExpression.Expression;
-                        object parentValue = null;
-                        if (innerExpression != null)
-                            parentValue = GetValueOfExpression(innerExpression);
-                        if (parentValue != null || parentValue is null) {
-                            if (memberExpression.Member is PropertyInfo propInfo)
-                                return propInfo.GetValue(parentValue);
-                            else
-                                return (memberExpression.Member as FieldInfo).GetValue(parentValue);
-                        }
-                        return null;
+                        var parentValue = innerExpression is null ? null : GetValueOfExpression(innerExpression);
+                        if (memberExpression.Member is PropertyInfo propInfo)
+                            return propInfo.GetValue(parentValue);
+                        else
+                            return (memberExpression.Member as FieldInfo).GetValue(parentValue);
                     }
                     default:
-                        throw new ArgumentException("The expression must contain only member/property access sub-expressions", "exp");
+                        throw new ArgumentException("The expression must contain only member/property to access sub-expressions", nameof(exp));
                 }
             }
 
@@ -59,7 +55,7 @@ namespace slavanap.Expressions {
                 if (node.Method.ReflectedType == typeof(Expr) && node.Method.Name == nameof(Use)) {
                     LambdaExpression replaceWith = (LambdaExpression)GetValueOfExpression(node.Arguments[0]);
                     if (replaceWith.Parameters.Count != node.Arguments.Count - 1)
-                        throw new ArgumentException("Invalid expression supplied", "node");
+                        throw new ArgumentException("Invalid expression supplied", nameof(node));
                     for (int i = 0; i < replaceWith.Parameters.Count; ++i)
                         _replaceMap.Add(replaceWith.Parameters[i], base.Visit(node.Arguments[i + 1]));
 
